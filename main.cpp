@@ -142,7 +142,7 @@ int main(void)
 	glViewport(0, 0, width, height);
 
 	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.2f, 0.2f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	GLuint VertexArrayIDPlane;
@@ -456,7 +456,8 @@ int main(void)
 		if (!allyBall1.getBallThrowTrue() && !allyBall1.getBallCalibrateTrue()
 			&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		{
-			allyBall1.setBallPositionX(allyBall1.getBallPositionX() - 0.007f);
+			if(allyBall1.getBallPositionX() > -1.7f)
+				allyBall1.setBallPositionX(allyBall1.getBallPositionX() - 0.007f);
 			allyBall1.ballCalibrate(model);
 
 		}
@@ -464,7 +465,8 @@ int main(void)
 		if (!allyBall1.getBallThrowTrue() && !allyBall1.getBallCalibrateTrue()
 			&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		{
-			allyBall1.setBallPositionX(allyBall1.getBallPositionX() + 0.007f);
+			if (allyBall1.getBallPositionX() < 1.7f)
+				allyBall1.setBallPositionX(allyBall1.getBallPositionX() + 0.007f);
 			allyBall1.ballCalibrate(model);
 		}
 
