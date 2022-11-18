@@ -1,0 +1,4 @@
+F:\Teaching\Sem1\ACG\Lab 7 - light with no textures\Lab 7 - OpenGL no textures\Debug\ACG_Lab7.exe
+F:\Teaching\Sem1\ACG\Lab 7 - light with no textures\Lab 7 - OpenGL no textures\Debug\ACG_Lab7.pdb
+C:\Uni\Graphics\LABS\Lab 7 - OpenGL Light start\Lab 7 - OpenGL no textures\Debug\ACG_Lab7.exe
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Debug\ACG_Lab7.exe
