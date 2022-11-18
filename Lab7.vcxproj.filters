@@ -11,6 +11,10 @@
     <None Include="SimpleVertexShader.vertexshader" />
     <None Include="LightFragmentShader.fragmentshader" />
     <None Include="LightVertexShader.vertexshader" />
+    <None Include="SimpleFragmentShaderJack.fragmentshader" />
+    <None Include="SimpleVertexShaderJack.vertexshader" />
+    <None Include="SimpleFragmentShaderPlane.fragmentshader" />
+    <None Include="SimpleVertexShaderPlane.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\camera.h" />

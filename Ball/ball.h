@@ -33,6 +33,7 @@ public:
 	float getBallPositionZ();
 	int getBallThrowTrue();
 	int getBallCalibrateTrue();
+	
 
 	void setBallPosition(glm::vec3 ballPostion);
 	void setBallPositionX(float x);
@@ -40,4 +41,5 @@ public:
 	void setBallPositionZ(float z);
 	void setBallThrowTrue(int throwTrue);
 	void setBallCalibrateTrue(int calibrateTrue);
+
 };

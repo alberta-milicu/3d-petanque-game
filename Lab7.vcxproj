@@ -28,7 +28,11 @@
     <None Include="LightFragmentShader.fragmentshader" />
     <None Include="LightVertexShader.vertexshader" />
     <None Include="SimpleFragmentShader.fragmentshader" />
+    <None Include="SimpleFragmentShaderJack.fragmentshader" />
+    <None Include="SimpleFragmentShaderPlane.fragmentshader" />
     <None Include="SimpleVertexShader.vertexshader" />
+    <None Include="SimpleVertexShaderJack.vertexshader" />
+    <None Include="SimpleVertexShaderPlane.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball\ball.h" />

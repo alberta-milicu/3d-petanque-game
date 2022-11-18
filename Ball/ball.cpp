@@ -12,6 +12,7 @@ Ball::Ball(glm::vec3 ballPosition, int throwTrue, int calibrateTrue)
 	this->ballPosition = ballPosition;
 	this->throwTrue = throwTrue;
 	this->calibrateTrue = calibrateTrue;
+
 }
 
 Ball::~Ball()
@@ -20,7 +21,8 @@ Ball::~Ball()
 
 void Ball::drawBall(glm::mat4 MVP, glm::mat4 projection, glm::mat4 view, glm::mat4 model, GLuint programID)
 {
-
+	model = glm::translate(model, this->getBallPosition());
+	
 	unsigned int transformLoc0 = glGetUniformLocation(programID, "model");
 	glUniformMatrix4fv(transformLoc0, 1, GL_FALSE, glm::value_ptr(model));
 

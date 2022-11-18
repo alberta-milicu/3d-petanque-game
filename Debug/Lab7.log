@@ -1,7 +1,5 @@
 ﻿          1 file(s) copied.
           1 file(s) copied.
-  ball.cpp
   main.cpp
 C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(51,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
   Lab7.vcxproj -> C:\Uni\Graphics\ACG BIG HW 3D GAME\Debug\ACG_Lab7.exe
