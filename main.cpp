@@ -91,12 +91,13 @@ void useShaderPack(GLuint programID, GLuint vao)
 	glBindVertexArray(vao);
 }
 
-void animateBall(Ball allyBall1, glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::mat4 MVP, GLuint programID)
+void animateBall(Ball allyBall1, 
+	glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::mat4 MVP, GLuint programID)
 {
 
 	model = glm::mat4(1.0);
 
-	model = allyBall1.ballThrow(model, -600.f);
+	model = allyBall1.ballThrow(model);
 
 	MVP = projection * view * model;
 
@@ -150,47 +151,49 @@ int main(void)
 	glBindVertexArray(VertexArrayIDPlane);
 
 	// Load shader
-	GLuint programIDPlane = LoadShaders("SimpleVertexShaderPlane.vertexshader", "SimpleFragmentShaderPlane.fragmentshader");
-	GLuint programIDLight = LoadShaders("LightVertexShader.vertexshader", "LightFragmentShader.fragmentshader");
+	GLuint programIDPlane = LoadShaders("Shaders/SimpleVertexShaderPlane.vertexshader", "Shaders/SimpleFragmentShaderPlane.fragmentshader");
+	GLuint programIDLight = LoadShaders("Shaders/LightVertexShader.vertexshader", "Shaders/LightFragmentShader.fragmentshader");
+
+	float planeLength = 800.0f;
 
 	GLfloat verticesPlane[] = {
 		//we add coordinates for NORMALS 
 		//back
 		// position			//normals		
-		-4.0f, -0.1f, -800.0f, 0.0f,  0.0f, -1.0f,  //0
-		4.0f, -0.1f, -800.0f, 0.0f,  0.0f, -1.0f,  //1
-		4.0f,  0.1f, -800.0f, 0.0f,  0.0f, -1.0f,  //2
-		-4.0f,  0.1f, -800.0f,  0.0f,  0.0f, -1.0f,  //3
+		-4.0f, -0.1f, -planeLength, 0.0f,  0.0f, -1.0f,  //0
+		4.0f, -0.1f, -planeLength, 0.0f,  0.0f, -1.0f,  //1
+		4.0f,  0.1f, -planeLength, 0.0f,  0.0f, -1.0f,  //2
+		-4.0f,  0.1f, -planeLength,  0.0f,  0.0f, -1.0f,  //3
 
 		//front
-		-4.0f, -0.1f,  800.0f,  0.0f,  0.0f,  1.0f,  //4
-		4.0f, -0.1f,  800.0f,  0.0f,  0.0f,  1.0f,  //5
-		4.0f,  0.1f,  800.0f,  0.0f,  0.0f,  1.0f,  //6
-		-4.0f,  0.1f,  800.0f,  0.0f,  0.0f,  1.0f, //7
+		-4.0f, -0.1f,  planeLength,  0.0f,  0.0f,  1.0f,  //4
+		4.0f, -0.1f, planeLength,  0.0f,  0.0f,  1.0f,  //5
+		4.0f,  0.1f,  planeLength,  0.0f,  0.0f,  1.0f,  //6
+		-4.0f,  0.1f, planeLength,  0.0f,  0.0f,  1.0f, //7
 
 		//left
-	   -4.0f,  0.1f,  800.0f, -1.0f,  0.0f,  0.0f, //8
-	   -4.0f,  0.1f, -800.0f, -1.0f,  0.0f,  0.0f, //9
-	   -4.0f, -0.1f, -800.0f, -1.0f,  0.0f,  0.0f, //10
-	   -4.0f, -0.1f,  800.0f, -1.0f,  0.0f,  0.0f, //11
+	   -4.0f,  0.1f,  planeLength, -1.0f,  0.0f,  0.0f, //8
+	   -4.0f,  0.1f, -planeLength, -1.0f,  0.0f,  0.0f, //9
+	   -4.0f, -0.1f, -planeLength, -1.0f,  0.0f,  0.0f, //10
+	   -4.0f, -0.1f,  planeLength, -1.0f,  0.0f,  0.0f, //11
 
 	   // right
-	   4.0f,  0.1f,  800.0f,  1.0f,  0.0f,  0.0f, //12
-	   4.0f,  0.1f, -800.0f,  1.0f,  0.0f,  0.0f, //13
-	   4.0f, -0.1f, -800.0f,  1.0f,  0.0f,  0.0f, //14
-	   4.0f, -0.1f,  800.0f,  1.0f,  0.0f,  0.0f, //15
+	   4.0f,  0.1f,  planeLength,  1.0f,  0.0f,  0.0f, //12
+	   4.0f,  0.1f, -planeLength,  1.0f,  0.0f,  0.0f, //13
+	   4.0f, -0.1f, -planeLength,  1.0f,  0.0f,  0.0f, //14
+	   4.0f, -0.1f,  planeLength,  1.0f,  0.0f,  0.0f, //15
 
 	   //bottom
-	  -4.0f, -0.1f, -800.0f,  0.0f, -1.0f,  0.0f, //16
-	  4.0f, -0.1f, -800.0f,  0.0f, -1.0f,  0.0f, //17
-	  4.0f, -0.1f,  800.0f,  0.0f, -1.0f,  0.0f, //18
-	  -4.0f, -0.1f,  800.0f,  0.0f, -1.0f,  0.0f,//19
+	  -4.0f, -0.1f, -planeLength,  0.0f, -1.0f,  0.0f, //16
+	  4.0f, -0.1f, -planeLength,  0.0f, -1.0f,  0.0f, //17
+	  4.0f, -0.1f,  planeLength,  0.0f, -1.0f,  0.0f, //18
+	  -4.0f, -0.1f, planeLength,  0.0f, -1.0f,  0.0f,//19
 
 	  //top
-	 -4.0f,  0.1f, -800.0f,  0.0f,  1.0f,  0.0f, //20
-	 4.0f,  0.1f, -800.0f,  0.0f,  1.0f,  0.0f, //21
-	 4.0f,  0.1f,  800.0f,  0.0f,  1.0f,  0.0f, //22
-	 -4.0f,  0.1f,  800.0f,  0.0f, 1.0f,  0.0f,  //23
+	 -4.0f,  0.1f, -planeLength,  0.0f,  1.0f,  0.0f, //20
+	 4.0f,  0.1f, -planeLength,  0.0f,  1.0f,  0.0f, //21
+	 4.0f,  0.1f,  planeLength,  0.0f,  1.0f,  0.0f, //22
+	 -4.0f,  0.1f,  planeLength,  0.0f, 1.0f,  0.0f,  //23
 	};
 
 	// A Vertex Array Object (VAO) is an object which contains one or more Vertex Buffer Objects and is designed to store the information for a complete rendered object. 
@@ -231,7 +234,7 @@ int main(void)
 	glBindVertexArray(VertexArrayIDJack);
 
 	// Load shader
-	GLuint programIDJack = LoadShaders("SimpleVertexShaderJack.vertexshader", "SimpleFragmentShaderJack.fragmentshader");
+	GLuint programIDJack = LoadShaders("Shaders/SimpleVertexShaderJack.vertexshader", "Shaders/SimpleFragmentShaderJack.fragmentshader");
 	//GLuint programIDLight = LoadShaders("LightVertexShader.vertexshader", "LightFragmentShader.fragmentshader");
 
 	GLfloat verticesJack[] = {
@@ -306,15 +309,15 @@ int main(void)
 	);
 	glEnableVertexAttribArray(1);
 
-	GLuint VertexArrayID;
-	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
+	GLuint VertexArrayIDRed1;
+	glGenVertexArrays(1, &VertexArrayIDRed1);
+	glBindVertexArray(VertexArrayIDRed1);
 
 	// Load shader
-	GLuint programID = LoadShaders("SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader");
+	GLuint programIDRed1 = LoadShaders("Shaders/SimpleVertexShaderRed1.vertexshader", "Shaders/SimpleFragmentShaderRed1.fragmentshader");
 	//GLuint programIDLight = LoadShaders("LightVertexShader.vertexshader", "LightFragmentShader.fragmentshader");
 
-	GLfloat vertices[] = {
+	GLfloat verticesRed1[] = {
 		//we add coordinates for NORMALS 
 		//back
 		// position			//normals		
@@ -355,14 +358,14 @@ int main(void)
 	};
 
 	// A Vertex Array Object (VAO) is an object which contains one or more Vertex Buffer Objects and is designed to store the information for a complete rendered object. 
-	GLuint vbo, vao;
-	glGenVertexArrays(1, &vao);
-	glGenBuffers(1, &vbo);
+	GLuint vboRed1, vaoRed1;
+	glGenVertexArrays(1, &vaoRed1);
+	glGenBuffers(1, &vboRed1);
 
-	glBindVertexArray(vao);
+	glBindVertexArray(vaoRed1);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vboRed1);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesRed1), verticesRed1, GL_STATIC_DRAW);
 
 	// 1rst attribute buffer : vertices position
 	glVertexAttribPointer(
@@ -389,9 +392,18 @@ int main(void)
 	glfwSetFramebufferSizeCallback(window, window_callback);
 
 
-	Ball allyBall1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0);
-	Ball jack = Ball(glm::vec3(0.0f, 0.0f, -800.0f), 0, 0);
-	Ball plane = Ball(glm::vec3(0.0f, -0.6f, -795.0f), 0, 0);
+	Ball jack = Ball(glm::vec3(0.0f, 0.0f, -1300.0f), 0, 0, 0, 0,0,0);
+
+	Ball red1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0,0,0);
+	Ball blue1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0,0,0);
+
+	Ball red2 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+	Ball blue2 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+
+	Ball red3 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+	Ball blue3 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+
+	Ball players[2] = {red1, blue1};
 
 
 	// Check if the window was closed
@@ -411,21 +423,30 @@ int main(void)
 		glm::mat4 projection;
 		projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 10000.0f);
 
-		//glm::mat4 MVP;
+		//draw the plane;
 
 
 		glm::mat4 MVP;
 
 		useShaderPack(programIDPlane, vaoPlane);
 
-		modelPlane = plane.ballCalibrate(modelPlane);
+
+		modelPlane = glm::translate(model, glm::vec3(0.0f, -0.6f, -795.0f));
 
 		MVP = projection * view * modelPlane;
 
-		plane.drawBall(MVP, projection, view, modelPlane, programIDPlane);
+		unsigned int transformLoc100 = glGetUniformLocation(programIDPlane, "model");
+		glUniformMatrix4fv(transformLoc100, 1, GL_FALSE, glm::value_ptr(modelPlane));
+
+		unsigned int transformLoc111 = glGetUniformLocation(programIDPlane, "transform");
+		glUniformMatrix4fv(transformLoc111, 1, GL_FALSE, glm::value_ptr(MVP));
+
+		glDrawArrays(GL_QUADS, 0, 24);
 
 		setLight(programIDPlane);
 
+
+		//draw the Jack
 
 
 		useShaderPack(programIDJack, vaoJack);
@@ -439,62 +460,92 @@ int main(void)
 		setLight(programIDJack);
 
 
+		//draw the ball
 
 
-		useShaderPack(programID, vao);
+		useShaderPack(programIDRed1, vaoRed1);
 
-		if (!allyBall1.getBallThrowTrue() && glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+		if (!red1.getBallSpawnTrue() && !red1.getBallDisqualified() && glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
+		{
+			red1.setBallSpawnTrue(1);
+		}
+
+		if (red1.getBallSpawnTrue())
 		{
 			
-			allyBall1.setBallThrowTrue(1);
-			allyBall1.setBallCalibrateTrue(1);
+			if (!red1.getBallThrowTrue())
+			{
+				if(glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
+				{
+					red1.setBallThrowSpeed(red1.getBallThrowSpeed() + 1);
 
-			allyBall1.setBallPositionX(allyBall1.getBallPositionX() * 2.0f);
-			
+				}
+
+				if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE && red1.getBallThrowSpeed() != 0)
+				{
+					red1.setBallThrowDist(pow((red1.getBallThrowSpeed() / 10), 2) / (2 * 0.5 * 9.81));
+					
+					red1.setBallThrowTrue(1);
+					red1.setBallCalibrateTrue(1);
+
+					red1.setBallPositionX(red1.getBallPositionX() * 2.0f);
+				}
+
+			}
+
+			if (!red1.getBallThrowTrue() && !red1.getBallCalibrateTrue()
+				&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+			{
+				if (red1.getBallPositionX() > -1.7f)
+					red1.setBallPositionX(red1.getBallPositionX() - 0.007f);
+				red1.ballCalibrate(model);
+
+			}
+
+			if (!red1.getBallThrowTrue() && !red1.getBallCalibrateTrue()
+				&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+			{
+				if (red1.getBallPositionX() < 1.7f)
+					red1.setBallPositionX(red1.getBallPositionX() + 0.007f);
+				red1.ballCalibrate(model);
+			}
+
+			if (!red1.getBallThrowTrue() && !red1.getBallCalibrateTrue())
+			{
+
+				model = red1.ballCalibrate(model);
+			}
+
+			if (red1.getBallThrowTrue() && red1.getBallCalibrateTrue())
+			{
+				red1.setBallPositionZ(red1.getBallPositionZ() - red1.getBallThrowDist()*0.1 / red1.getBallThrowSpeed());
+				animateBall(red1, projection, view, model, MVP, programIDRed1);
+			}
+			else
+			{
+
+				model = glm::translate(model, red1.getBallPosition());
+
+				MVP = projection * view * model;
+
+				red1.drawBall(MVP, projection, view, model, programIDRed1);
+			}
+
 		}
 
-		if (!allyBall1.getBallThrowTrue() && !allyBall1.getBallCalibrateTrue()
-			&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		if (red1.getBallPositionZ() < -1590.0f)
 		{
-			if(allyBall1.getBallPositionX() > -1.7f)
-				allyBall1.setBallPositionX(allyBall1.getBallPositionX() - 0.007f);
-			allyBall1.ballCalibrate(model);
+			red1.setBallSpawnTrue(0);
+			red1.setBallCalibrateTrue(0);
+			red1.setBallThrowTrue(0);
+			red1.setBallThrowSpeed(0);
+			red1.setBallThrowDist(0);
+			red1.setBallDisqualified(1);
 
+			red1.setBallPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 		}
 
-		if (!allyBall1.getBallThrowTrue() && !allyBall1.getBallCalibrateTrue()
-			&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		{
-			if (allyBall1.getBallPositionX() < 1.7f)
-				allyBall1.setBallPositionX(allyBall1.getBallPositionX() + 0.007f);
-			allyBall1.ballCalibrate(model);
-		}
-
-		if (!allyBall1.getBallThrowTrue() && !allyBall1.getBallCalibrateTrue())
-		{
-
-			model = allyBall1.ballCalibrate(model);
-
-
-		}
-
-		if (allyBall1.getBallThrowTrue() && allyBall1.getBallCalibrateTrue())
-		{
-			allyBall1.setBallPositionZ(allyBall1.getBallPositionZ() - 0.07f);
-			animateBall(allyBall1, projection, view, model, MVP, programID);
-		}
-		else
-		{
-
-			model = glm::translate(model, allyBall1.getBallPosition());
-
-			MVP = projection * view * model;
-
-			allyBall1.drawBall(MVP, projection, view, model, programID);
-		}
-
-
-		setLight(programID);
+		setLight(programIDRed1);
 
 
 
@@ -518,9 +569,9 @@ int main(void)
 	}
 
 	// Cleanup VBO
-	glDeleteBuffers(1, &vbo);
-	glDeleteVertexArrays(1, &VertexArrayID);
-	glDeleteProgram(programID);
+	glDeleteBuffers(1, &vboRed1);
+	glDeleteVertexArrays(1, &VertexArrayIDRed1);
+	glDeleteProgram(programIDRed1);
 
 	// Close OpenGL window and terminate GLFW
 	glfwTerminate();
@@ -562,38 +613,4 @@ void processKeyboardInput()
 		camera.rotateOx(-cameraSpeed / 2);
 	}
 
-	/*if (glfwGetKey(window, GLFW_KEY_W))
-	{
-		camera.keyboardMoveFront(cameraSpeed);
-		std::cout << camera.getCameraPosition().x << " " << camera.getCameraPosition().y << " " << camera.getCameraPosition().z << std::endl;
-	}
-	if (glfwGetKey(window, GLFW_KEY_S))
-	{
-		camera.keyboardMoveBack(cameraSpeed);
-		std::cout << camera.getCameraPosition().x << " " << camera.getCameraPosition().y << " " << camera.getCameraPosition().z << std::endl;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_R))
-	{
-		camera.keyboardMoveUp(cameraSpeed);
-		std::cout << camera.getCameraPosition().x << " " << camera.getCameraPosition().y << " " << camera.getCameraPosition().z << std::endl;
-	}
-	if (glfwGetKey(window, GLFW_KEY_F))
-	{
-		camera.keyboardMoveDown(cameraSpeed);
-		std::cout << camera.getCameraPosition().x << " " << camera.getCameraPosition().y << " " << camera.getCameraPosition().z << std::endl;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_UP))
-	{
-		camera.rotateOx(cameraSpeed / 100);
-		std::cout << camera.getCameraPosition().x << " " << camera.getCameraPosition().y << " " << camera.getCameraPosition().z << std::endl;
-	}
-	if (glfwGetKey(window, GLFW_KEY_DOWN))
-	{
-		camera.rotateOx(-cameraSpeed / 100);
-		std::cout << camera.getCameraPosition().x << " " << camera.getCameraPosition().y << " " << camera.getCameraPosition().z << std::endl;
-	}*/
-	
-	//toggle top view -> rotateOX 90deg(-) and focus camera pos
 }

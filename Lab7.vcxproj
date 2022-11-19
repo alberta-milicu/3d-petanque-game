@@ -25,18 +25,18 @@
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LightFragmentShader.fragmentshader" />
-    <None Include="LightVertexShader.vertexshader" />
-    <None Include="SimpleFragmentShader.fragmentshader" />
-    <None Include="SimpleFragmentShaderJack.fragmentshader" />
-    <None Include="SimpleFragmentShaderPlane.fragmentshader" />
-    <None Include="SimpleVertexShader.vertexshader" />
-    <None Include="SimpleVertexShaderJack.vertexshader" />
-    <None Include="SimpleVertexShaderPlane.vertexshader" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Ball\ball.h" />
     <ClInclude Include="Camera\camera.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\LightFragmentShader.fragmentshader" />
+    <None Include="Shaders\LightVertexShader.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderJack.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderPlane.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderRed1.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderJack.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderPlane.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderRed1.vertexshader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8D7D48F-7AB1-4260-BCEC-8CC11D9FBC01}</ProjectGuid>
