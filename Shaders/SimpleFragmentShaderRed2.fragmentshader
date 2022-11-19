@@ -1,0 +1,48 @@
+#version 330 core
+
+in vec3 normal;	//the input variable from the vertex shader (same name and same type)  
+in vec3 fragPos;
+
+// Output data
+out vec4 fragColor;
+
+uniform vec3 lightColor;
+
+uniform vec3 lightPos;
+
+
+
+uniform vec3 viewPos;
+
+
+void main()
+{
+	float ka = 0.2; //ambient strength
+	vec3 ambient = ka * lightColor;
+
+	vec3 norm = normalize(normal);
+	vec3 lightDir = normalize(lightPos - fragPos);
+
+	float kd = 1;
+	float diff = max(dot(norm, lightPos), 0.0);
+
+
+	vec3 diffuse = kd * diff * lightColor;
+
+
+
+	vec4 coral = vec4(1.0f, 0.0f, 0.0f, 1);
+
+
+
+	float ks = 0.5;
+	vec3 viewDir = normalize(viewPos - fragPos);
+	vec3 reflectDir = reflect(-lightPos, norm);
+	float spec = pow(max(dot(viewPos,reflectDir), 0.0), 32);
+	vec3 specular = ks * spec * lightColor;
+
+
+
+
+	fragColor = vec4(ambient + specular + diffuse ,1) * coral;
+}
