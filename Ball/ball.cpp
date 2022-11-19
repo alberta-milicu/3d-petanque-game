@@ -12,7 +12,7 @@ Ball::Ball()
 }
 
 Ball::Ball(glm::vec3 ballPosition, int throwTrue, int calibrateTrue, 
-	int spawnTrue, int throwDist, int throwSpeed, int disqualified)
+	int spawnTrue, float throwDist, float throwSpeed, int disqualified)
 {
 	this->ballPosition = ballPosition;
 	this->throwTrue = throwTrue;
@@ -55,7 +55,7 @@ glm::mat4 Ball::ballRotate(glm::mat4 model)
 
 glm::mat4 Ball::ballAdvance(glm::mat4 model)
 {
-	if (this->getBallPositionZ() > -this->throwDist)
+	if (this->getBallPositionZ() > -(this->throwDist))
 		model = glm::translate(model, this->getBallPosition());
 	else model = glm::translate(model, 
 		glm::vec3(this->getBallPositionX(), this->getBallPositionY(), -this->throwDist));
@@ -112,12 +112,12 @@ int Ball::getBallSpawnTrue()
 	return this->spawnTrue;
 }
 
-int Ball::getBallThrowDist()
+float Ball::getBallThrowDist()
 {
 	return this->throwDist;
 }
 
-int Ball::getBallThrowSpeed()
+float Ball::getBallThrowSpeed()
 {
 	return this->throwSpeed;
 }
@@ -164,12 +164,12 @@ void Ball::setBallSpawnTrue(int spawnTrue)
 	this->spawnTrue = spawnTrue;
 }
 
-void Ball::setBallThrowDist(int throwDist)
+void Ball::setBallThrowDist(float throwDist)
 {
 	this->throwDist = throwDist;
 }
 
-void Ball::setBallThrowSpeed(int throwSpeed)
+void Ball::setBallThrowSpeed(float throwSpeed)
 {
 	this->throwSpeed = throwSpeed;
 }

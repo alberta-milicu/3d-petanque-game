@@ -31,12 +31,22 @@
   <ItemGroup>
     <None Include="Shaders\LightFragmentShader.fragmentshader" />
     <None Include="Shaders\LightVertexShader.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderBlue1.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderBlue2.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderBlue3.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderJack.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderPlane.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderRed1.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderRed2.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderRed3.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderBlue1.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderBlue2.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderBlue3.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderJack.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderPlane.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderRed1.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderRed2.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderRed3.vertexshader" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8D7D48F-7AB1-4260-BCEC-8CC11D9FBC01}</ProjectGuid>
