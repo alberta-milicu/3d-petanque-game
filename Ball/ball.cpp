@@ -75,6 +75,33 @@ glm::mat4 Ball::ballCalibrate(glm::mat4 model)
 	return model;
 }
 
+void Ball::ballBlock()
+{
+	if (this->getBallPositionZ() < -1600.0f)
+	{
+		this->setBallSpawnTrue(0);
+		this->setBallCalibrateTrue(0);
+		this->setBallThrowTrue(0);
+		this->setBallThrowSpeed(0);
+		this->setBallThrowDist(0);
+		this->setBallDisqualified(1);
+
+		this->setBallPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+}
+
+void Ball::ballReset()
+{
+	this->setBallSpawnTrue(0);
+	this->setBallCalibrateTrue(0);
+	this->setBallThrowTrue(0);
+	this->setBallThrowSpeed(0);
+	this->setBallThrowDist(0);
+	this->setBallDisqualified(0);
+
+	this->setBallPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+}
+
 
 
 glm::vec3 Ball::getBallPosition()
