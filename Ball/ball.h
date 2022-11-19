@@ -31,6 +31,8 @@ public:
 	glm::mat4 ballAdvance(glm::mat4 model);
 	glm::mat4 ballThrow(glm::mat4 model);
 	glm::mat4 ballCalibrate(glm::mat4 model);
+	void ballBlock();
+	void ballReset();
 
 	glm::vec3 getBallPosition();
 	float getBallPositionX();
