@@ -106,6 +106,17 @@ void animateBall(Ball allyBall1,
 
 }
 
+int checkCollision(Ball ball1, Ball ball2, float tolerance)
+{
+	float xDif = abs(ball1.getBallPositionX() - ball2.getBallPositionX());
+	float zDif = abs(ball1.getBallPositionZ() - ball2.getBallPositionZ());
+
+	if (xDif <= tolerance && zDif <= tolerance)
+		return 1;
+	else return 0;
+}
+
+
 
 void window_callback(GLFWwindow* window, int new_width, int new_height)
 {
@@ -801,16 +812,16 @@ int main(void)
 	glfwSetFramebufferSizeCallback(window, window_callback);
 
 
-	Ball jack = Ball(glm::vec3(0.0f, 0.0f, -1300.0f), 0, 0, 0, 0, 0, 0);
+	Ball jack = Ball(glm::vec3(0.0f, 0.0f, -1300.0f), 0, 0, 0, 0, 0, 0,0);
 
-	Ball red1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
-	Ball blue1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+	Ball red1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0);
+	Ball blue1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0);
 
-	Ball red2 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
-	Ball blue2 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+	Ball red2 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0);
+	Ball blue2 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0);
 
-	Ball red3 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
-	Ball blue3 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0);
+	Ball red3 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0);
+	Ball blue3 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0);
 
 	Ball boules[6] = { red1, blue1, red2, blue2, red3, blue3 };
 	GLuint vao[6] = { vaoRed1, vaoBlue1, vaoRed2, vaoBlue2, vaoRed3, vaoBlue3 };
@@ -823,6 +834,8 @@ int main(void)
 	int gameRounds[4] = { 0,1,2,3 };
 
 	int currentRound = 0;
+
+	//int rewind;
 
 	// Check if the window was closed
 	while (!glfwWindowShouldClose(window) && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS)
@@ -900,8 +913,11 @@ int main(void)
 
 		if (currentRound <= 2)
 		{
+
 			for(int i = 0; i < 6; i++)
 			{
+				//int collisionIndex = i;
+
 				useShaderPack(programIDBoules[i], vao[i]);
 
 
@@ -912,9 +928,36 @@ int main(void)
 					std::cout << "ROUND " << currentRound + 1 << std::endl << "BOULE " << i + 1 << std::endl;
 				}
 
+
 				if (boules[i].getBallSpawnTrue())
 				{
+					
+					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue()
+						&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+					{
+						if (boules[i].getBallPositionX() > -1.7f)
+							boules[i].setBallPositionX(boules[i].getBallPositionX() - 0.0009f);
+						boules[i].ballCalibrate(modelBoules[i]);
 
+					}
+
+					
+					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue()
+						&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+					{
+						if (boules[i].getBallPositionX() < 1.7f)
+							boules[i].setBallPositionX(boules[i].getBallPositionX() + 0.0009f);
+						boules[i].ballCalibrate(modelBoules[i]);
+					}
+
+					
+					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue())
+					{
+
+						modelBoules[i] = boules[i].ballCalibrate(modelBoules[i]);
+					}
+
+					
 					if (!boules[i].getBallThrowTrue())
 					{
 						if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
@@ -935,37 +978,55 @@ int main(void)
 
 					}
 
-					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue()
-						&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-					{
-						if (boules[i].getBallPositionX() > -1.7f)
-							boules[i].setBallPositionX(boules[i].getBallPositionX() - 0.0009f);
-						boules[i].ballCalibrate(modelBoules[i]);
-
-					}
-
-					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue()
-						&& glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-					{
-						if (boules[i].getBallPositionX() < 1.7f)
-							boules[i].setBallPositionX(boules[i].getBallPositionX() + 0.0009f);
-						boules[i].ballCalibrate(modelBoules[i]);
-					}
-
-					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue())
-					{
-
-						modelBoules[i] = boules[i].ballCalibrate(modelBoules[i]);
-					}
+					
 
 					if (boules[i].getBallThrowTrue() && boules[i].getBallCalibrateTrue())
 					{
-
+						
+						
 						if (boules[i].getBallPositionZ() >= -boules[i].getBallThrowDist())
 							boules[i].setBallPositionZ(boules[i].getBallPositionZ() - boules[i].getBallThrowDist() * 0.1 / boules[i].getBallThrowSpeed());
 						else boules[i].setBallDisqualified(1);
-						animateBall(boules[i], projection, view, modelBoules[i], MVP, programIDBoules[i]);
+				
+							
+						
 
+
+						for (int h = 0; h < i; h++)
+						{
+							if (boules[h].getBallPosition() != glm::vec3(0.0f, 0.0f, 0.0f))
+								if (checkCollision(boules[i], boules[h], 1.0f))
+								{
+									boules[i].setBallThrowDist(-boules[i].getBallPositionZ() - 2.0f);
+
+									float dist = boules[h].getBallPositionZ() - boules[i].getBallThrowSpeed()/20;
+
+									boules[h].setBallThrowDist(-dist);
+
+
+									std::cout << "I: " << boules[i].getBallPositionZ() << std::endl << "H: " << boules[h].getBallPositionZ() << std::endl;
+
+									
+
+									if(boules[h].getBallPositionZ() <= dist)
+									{
+
+										useShaderPack(programIDBoules[h], vao[h]);
+
+										boules[h].setBallThrowSpeed(boules[i].getBallThrowSpeed() / 20);
+
+										boules[h].ballThrow(modelBoules[h]);
+
+										boules[h].drawBall(MVP, projection, view, modelBoules[h], programIDBoules[h]);
+
+									}
+								}
+
+							boules[h].ballBlock();
+
+						}
+
+						animateBall(boules[i], projection, view, modelBoules[i], MVP, programIDBoules[i]);
 
 					}
 					else
@@ -982,13 +1043,19 @@ int main(void)
 
 				}
 
-				boules[i].ballBlock();
-
+			
 				setLight(programIDBoules[i]);
 
-				if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && boules[i].getBallDisqualified())
+				
+				boules[i].ballBlock();
+
+				//i = collisionIndex;
+
+
+				/*if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && boules[i].getBallDisqualified())
 
 				{
+
 					float dist = sqrt(pow(jack.getBallPositionX() - boules[i].getBallPositionX(), 2) +
 						pow(jack.getBallPositionZ() - boules[i].getBallPositionZ(), 2));
 
@@ -1003,7 +1070,7 @@ int main(void)
 						int score = float(1 / dist) * 1000;
 						std::cout << "BLUE NO. " << i + 1 << "DIST : " << dist << " SCORE: " << score << std::endl;
 					}
-				}
+				}*/
 
 			}
 
