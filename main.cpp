@@ -837,6 +837,42 @@ int main(void)
 
 	//int rewind;
 
+	std::cout << "|----------------------------------------------------|" << std::endl;
+	std::cout << "|                                                    |" << std::endl;
+	std::cout << "|                   GAME CONTROLS                    |" << std::endl;
+	std::cout << "|                                                    |" << std::endl;
+	std::cout << "|----------------------------------------------------|" << std::endl;
+
+	std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
+	std::cout << "|                         |" << "|                         |" << std::endl;
+	std::cout << "|    PRESS B TO SPAWN     |" << "|    PRESS P TO THROW     |" << std::endl;
+	std::cout << "|                         |" << "|                         |" << std::endl;
+	std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
+	std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
+	std::cout << "|                         |" << "|                         |" << std::endl;
+	std::cout << "|    PRESS O TO RESET     |" << "| PRESS N FOR NEXT ROUND  |" << std::endl;
+	std::cout << "|                         |" << "|                         |" << std::endl;
+	std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
+
+	std::cout << "|----------------------------------------------------|" << std::endl;
+	std::cout << "|                                                    |" << std::endl;
+	std::cout << "|                     GAME RULES                     |" << std::endl;
+	std::cout << "|                                                    |" << std::endl;
+	std::cout << "|----------------------------------------------------|" << std::endl;
+
+	std::cout << "|----------------------------------------------------|" << std::endl;
+	std::cout << "|  1. THE LONGER YOU HOLD P, THE HARDER YOU THROW    |" << std::endl;
+	std::cout << "|  2. IF THE JACK IS HIT ROUND IS RESET              |" << std::endl;
+	std::cout << "|  3. THE TEAM WITH THE SHORTEST DISTANCE BETWEEN    |" << std::endl;
+	std::cout << "|  THE BOULES AND THE JACK WINS.                     |" << std::endl;
+	std::cout << "|----------------------------------------------------|" << std::endl;
+	std::cout << "| !!! IF A BOULE FALLS OFF THE END OF THE PLANE,     |" << std::endl;
+	std::cout << "| ITS DISTANCE TO THE JACK IS COMPUTED FROM (0,0,0)  |" << std::endl;
+	std::cout << "|----------------------------------------------------|" << std::endl;
+
+
+
+
 	// Check if the window was closed
 	while (!glfwWindowShouldClose(window) && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS)
 	{
@@ -911,21 +947,28 @@ int main(void)
 
 		}
 
+
 		if (currentRound <= 2)
 		{
 
 			for(int i = 0; i < 6; i++)
 			{
-				//int collisionIndex = i;
-
 				useShaderPack(programIDBoules[i], vao[i]);
 
 
 				if (!boules[i].getBallSpawnTrue() && !boules[i].getBallDisqualified() && boules[i - 1].getBallDisqualified()
 					&& glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
 				{
+					
 					boules[i].setBallSpawnTrue(1);
-					std::cout << "ROUND " << currentRound + 1 << std::endl << "BOULE " << i + 1 << std::endl;
+					//std::cout << "ROUND " << currentRound + 1 << std::endl << "BOULE " << i + 1 << std::endl;
+
+					std::cout << "|-------------------------|" << std::endl;
+					std::cout << "|                         |" << std::endl;
+					std::cout << "|     ROUND " << currentRound + 1 << ": BOULE " << i + 1 << "    |" << std::endl;
+					std::cout << "|                         |" << std::endl;
+					std::cout << "|-------------------------|" << std::endl;
+
 				}
 
 
@@ -978,8 +1021,6 @@ int main(void)
 
 					}
 
-					
-
 					if (boules[i].getBallThrowTrue() && boules[i].getBallCalibrateTrue())
 					{
 						
@@ -988,8 +1029,16 @@ int main(void)
 							boules[i].setBallPositionZ(boules[i].getBallPositionZ() - boules[i].getBallThrowDist() * 0.1 / boules[i].getBallThrowSpeed());
 						else boules[i].setBallDisqualified(1);
 				
-							
-						
+	
+						if (checkCollision(boules[i], jack, 1.0f))
+						{
+							boules[i].setBallThrowDist(-boules[i].getBallPositionZ() - 2.0f);
+
+							//GAME RESET
+
+							for (int j = 0; j < 6; j++)
+								boules[j].ballReset();
+						}
 
 
 						for (int h = 0; h < i; h++)
@@ -1004,7 +1053,7 @@ int main(void)
 									boules[h].setBallThrowDist(-dist);
 
 
-									std::cout << "I: " << boules[i].getBallPositionZ() << std::endl << "H: " << boules[h].getBallPositionZ() << std::endl;
+									//COLLISION DETECTED!
 
 									
 
@@ -1049,28 +1098,7 @@ int main(void)
 				
 				boules[i].ballBlock();
 
-				//i = collisionIndex;
-
-
-				/*if(glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && boules[i].getBallDisqualified())
-
-				{
-
-					float dist = sqrt(pow(jack.getBallPositionX() - boules[i].getBallPositionX(), 2) +
-						pow(jack.getBallPositionZ() - boules[i].getBallPositionZ(), 2));
-
-					if (i % 2 == 0)
-					{
-						int score = float(1 / dist) * 1000;
-						std::cout << "RED NO. " << i + 1 << "DIST : " << dist << " SCORE: " << score << std::endl;
-					}
-
-					else
-					{
-						int score = float(1 / dist) * 1000;
-						std::cout << "BLUE NO. " << i + 1 << "DIST : " << dist << " SCORE: " << score << std::endl;
-					}
-				}*/
+		
 
 			}
 
@@ -1078,7 +1106,8 @@ int main(void)
 
 
 		if (boules[0].getBallDisqualified() && boules[1].getBallDisqualified() && boules[2].getBallDisqualified()
-			&& boules[3].getBallDisqualified() && boules[4].getBallDisqualified() && boules[5].getBallDisqualified())
+			&& boules[3].getBallDisqualified() && boules[4].getBallDisqualified() && boules[5].getBallDisqualified()
+			&& glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
 		{
 
 			float allScores[6] = { 0,0,0,0,0,0 };
@@ -1094,7 +1123,6 @@ int main(void)
 				
 				allScores[j] = float(1 / dist) * 10000;
 
-				std::cout<<allScores[j]<<std::endl;
 
 			}
 
@@ -1108,17 +1136,39 @@ int main(void)
 			{
 				float redScore = redScores[0] + redScores[1] + redScores[2];
 				float blueScore = blueScores[0] + blueScores[1] + blueScores[2];
-				std::cout << "TEAM RED FINAL SCORE: " << (int)redScore << std::endl;
-				std::cout << "TEAM BLUE FINAL SCORE: " << (int)blueScore << std::endl;
+
+				std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
+				std::cout << "|                         |" << "|                         |" << std::endl;
+				std::cout << "|TEAM RED FINAL SCORE:" << (int)redScore<<"||TEAM BLUE FINAL SCORE:"<< (int)blueScore<< "|"<< std::endl;
+				std::cout << "|                         |" << "|                         |" << std::endl;
+				std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
 
 				if((int)blueScore > (int)redScore)
-					std::cout << "WINNER: TEAM BLUE" << std::endl;
+				{
+					std::cout << "|----------------------------------------------------|" << std::endl;
+					std::cout << "|                                                    |" << std::endl;
+					std::cout << "|                  WINNER TEAM BLUE                  |" << std::endl;
+					std::cout << "|                                                    |" << std::endl;
+					std::cout << "|----------------------------------------------------|" << std::endl;
+				}
 
 				if ((int)blueScore < (int)redScore)
-					std::cout << "WINNER: TEAM RED" << std::endl;
+				{
+					std::cout << "|----------------------------------------------------|" << std::endl;
+					std::cout << "|                                                    |" << std::endl;
+					std::cout << "|                  WINNER TEAM RED                   |" << std::endl;
+					std::cout << "|                                                    |" << std::endl;
+					std::cout << "|----------------------------------------------------|" << std::endl;
+				}
 
 				if ((int)blueScore == (int)redScore)
-					std::cout << "WINNER: TIE" << std::endl;
+				{
+					std::cout << "|----------------------------------------------------|" << std::endl;
+					std::cout << "|                                                    |" << std::endl;
+					std::cout << "|                     WINNER TIE                     |" << std::endl;
+					std::cout << "|                                                    |" << std::endl;
+					std::cout << "|----------------------------------------------------|" << std::endl;
+				}
 			}
 
 			/*std::cout << "TEAM RED SCORE: " << redScores[currentRound] << std::endl;

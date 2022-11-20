@@ -2,8 +2,8 @@
           1 file(s) copied.
   main.cpp
 C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(52,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(971,80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(988,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1092,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1096,19): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1014,80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1029,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1118,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1122,19): warning C4305: '+=': truncation from 'double' to 'float'
   Lab7.vcxproj -> C:\Uni\Graphics\ACG BIG HW 3D GAME\Debug\ACG_Lab7.exe
