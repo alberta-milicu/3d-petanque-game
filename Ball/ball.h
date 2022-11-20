@@ -19,11 +19,12 @@ private:
 	int throwDist;
 	int throwSpeed;
 	int disqualified;
+	int collisionTrue;
 
 public:
 	Ball();
 	Ball(glm::vec3 ballPosition, int throwTrue, int calibrateTrue, 
-		int spawnTrue, float throwDist, float throwSpeed, int disqualified);
+		int spawnTrue, float throwDist, float throwSpeed, int disqualified, int collisionTrue);
 	~Ball();
 
 	void drawBall(glm::mat4 MVP, glm::mat4 projection, glm::mat4 view, glm::mat4 model, GLuint programID);
@@ -44,6 +45,7 @@ public:
 	float getBallThrowDist();
 	float getBallThrowSpeed();
 	int getBallDisqualified();
+	int getBallCollisionTrue();
 	
 
 	void setBallPosition(glm::vec3 ballPostion);
@@ -56,4 +58,5 @@ public:
 	void setBallThrowDist(float throwDist);
 	void setBallThrowSpeed(float throwSpeed);
 	void setBallDisqualified(int disqualified);
+	void setBallCollisionTrue(int collisionTrue);
 };

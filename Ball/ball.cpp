@@ -12,7 +12,7 @@ Ball::Ball()
 }
 
 Ball::Ball(glm::vec3 ballPosition, int throwTrue, int calibrateTrue, 
-	int spawnTrue, float throwDist, float throwSpeed, int disqualified)
+	int spawnTrue, float throwDist, float throwSpeed, int disqualified, int collisionTrue)
 {
 	this->ballPosition = ballPosition;
 	this->throwTrue = throwTrue;
@@ -21,6 +21,7 @@ Ball::Ball(glm::vec3 ballPosition, int throwTrue, int calibrateTrue,
 	this->throwDist = throwDist;
 	this->throwSpeed = throwSpeed;
 	this->disqualified = disqualified;
+	this->collisionTrue = collisionTrue;
 
 }
 
@@ -59,11 +60,13 @@ glm::mat4 Ball::ballAdvance(glm::mat4 model)
 		model = glm::translate(model, this->getBallPosition());
 	else model = glm::translate(model, 
 		glm::vec3(this->getBallPositionX(), this->getBallPositionY(), -this->throwDist));
+
 	return model;
 }
 
 glm::mat4 Ball::ballThrow(glm::mat4 model)
 {
+	
 	model = this->ballAdvance(model);
 	model = this->ballRotate(model);
 	return model;
@@ -98,6 +101,7 @@ void Ball::ballReset()
 	this->setBallThrowSpeed(0);
 	this->setBallThrowDist(0);
 	this->setBallDisqualified(0);
+	this->setBallCollisionTrue(0);
 
 	this->setBallPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 }
@@ -154,6 +158,11 @@ int Ball::getBallDisqualified()
 	return this->disqualified;
 }
 
+int Ball::getBallCollisionTrue()
+{
+	return this->collisionTrue;
+}
+
 
 
 void Ball::setBallPosition(glm::vec3 ballPosition)
@@ -204,4 +213,9 @@ void Ball::setBallThrowSpeed(float throwSpeed)
 void Ball::setBallDisqualified(int disqualified)
 {
 	this->disqualified = disqualified;
+}
+
+void Ball::setBallCollisionTrue(int collisionTrue)
+{
+	this->collisionTrue = collisionTrue;
 }
