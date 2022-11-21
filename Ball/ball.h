@@ -7,7 +7,7 @@
 #include "..\dependente\glm\glm.hpp"
 #include "..\dependente\glm\gtc\matrix_transform.hpp"
 #include "..\dependente\glm\gtc\type_ptr.hpp"
-#include "../Sphere.h"
+#include "..\Sphere\Sphere.h"
 
 
 class Ball

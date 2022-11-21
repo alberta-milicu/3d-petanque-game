@@ -21,7 +21,7 @@
 #include "dependente\glm\gtc\type_ptr.hpp"
 
 #include "shader.hpp"
-#include "sphere.h"
+#include "Sphere/Sphere.h"
 #include <vector>
 #include <math.h>
 
@@ -74,6 +74,8 @@ void setLight(GLuint programID)
 	glUniform3fv(transformLoc4, 1, glm::value_ptr(viewPos));
 }
 
+//functions for window set-up
+
 void setWindow(GLFWwindow* window)
 {
 	// Swap buffers
@@ -90,6 +92,9 @@ void setWindow(GLFWwindow* window)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+
+//here we bind the current used shaders
+
 void useShaderPack(GLuint programID, GLuint vao)
 {
 	glUseProgram(programID);
@@ -97,31 +102,36 @@ void useShaderPack(GLuint programID, GLuint vao)
 	glBindVertexArray(vao);
 }
 
+//function to create ball motion
+
 void animateBall(Ball allyBall1, 
 	glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::mat4 MVP, GLuint programID)
 {
 
 	model = glm::mat4(1.0);
 
-	model = allyBall1.ballThrow(model);
+	model = allyBall1.ballThrow(model); //find in ball.cpp
 
 	MVP = projection * view * model;
 
-	allyBall1.drawBall(MVP, projection, view, model, programID);
+	allyBall1.drawBall(MVP, projection, view, model, programID); //find in ball.cpp
 
 }
 
-int checkCollision(Ball ball1, Ball ball2, float tolerance)
+
+//function to check if there exists any collision between two boules on the plane
+
+int checkCollision(Ball ball1, Ball ball2, float tolerance) //tolerance = collision  position accuracy corrector
 {
 	float xDif = abs(ball1.getBallPositionX() - ball2.getBallPositionX());
 	float zDif = abs(ball1.getBallPositionZ() - ball2.getBallPositionZ());
 
 	if (xDif <= tolerance && zDif <= tolerance)
-		return 1;
-	else return 0;
+		return 1; //if collision
+	else return 0; //if no collision
 }
 
-
+//set view
 
 void window_callback(GLFWwindow* window, int new_width, int new_height)
 {
@@ -168,6 +178,7 @@ int main(void)
 	glGenVertexArrays(1, &VertexArrayIDPlane);
 	glBindVertexArray(VertexArrayIDPlane);
 
+	//add dirt plane
 	// Load shader
 	GLuint programIDPlane = LoadShaders("Shaders/SimpleVertexShaderPlane.vertexshader", "Shaders/SimpleFragmentShaderPlane.fragmentshader");
 	//GLuint programIDLight = LoadShaders("Shaders/LightVertexShader.vertexshader", "Shaders/LightFragmentShader.fragmentshader");
@@ -257,7 +268,7 @@ int main(void)
 	//GLuint programIDLight = LoadShaders("Shaders/LightVertexShader.vertexshader", "Shaders/LightFragmentShader.fragmentshader");
 
 	float grassLength = 800.0f;
-
+	 //add grass
 	GLfloat verticesGrass[] = {
 		//we add coordinates for NORMALS 
 		//back
@@ -331,6 +342,186 @@ int main(void)
 	glEnableVertexAttribArray(1);
 
 
+	GLuint programIDTrunk = LoadShaders("Shaders/SimpleVertexShaderPlaneTrunk.vertexshader", "Shaders/SimpleFragmentShaderPlaneTrunk.fragmentshader");
+
+	float treeHeight = 5.0f;
+
+
+	GLfloat verticesTrunk[] = {
+		///we add coordinates for NORMALS 
+		//back
+		// position			//normals		
+	-0.5f, -treeHeight, -0.5f, 0.0f,  0.0f, -1.0f,  //0
+		0.5f, -treeHeight, -0.5f, 0.0f,  0.0f, -1.0f,  //1
+		0.5f,  treeHeight, -0.5f, 0.0f,  0.0f, -1.0f,  //2
+		-0.5f,  treeHeight, -0.5f,  0.0f,  0.0f, -1.0f,  //3
+
+		//front
+		-0.5f, -treeHeight,  0.5f,  0.0f,  0.0f,  1.0f,  //4
+		0.5f, -treeHeight,  0.5f,  0.0f,  0.0f,  1.0f,  //5
+		0.5f,  treeHeight,  0.5f,  0.0f,  0.0f,  1.0f,  //6
+		-0.5f,  treeHeight,  0.5f,  0.0f,  0.0f,  1.0f, //7
+
+		//left
+	   -0.5f,  treeHeight,  0.5f, -1.0f,  0.0f,  0.0f, //8
+	   -0.5f,  treeHeight, -0.5f, -1.0f,  0.0f,  0.0f, //9
+	   -0.5f, -treeHeight, -0.5f, -1.0f,  0.0f,  0.0f, //10
+	   -0.5f, -treeHeight,  0.5f, -1.0f,  0.0f,  0.0f, //11
+
+	   // right
+	   0.5f,  treeHeight,  0.5f,  1.0f,  0.0f,  0.0f, //12
+	   0.5f,  treeHeight, -0.5f,  1.0f,  0.0f,  0.0f, //13
+	   0.5f, -treeHeight, -0.5f,  1.0f,  0.0f,  0.0f, //14
+	   0.5f, -treeHeight,  0.5f,  1.0f,  0.0f,  0.0f, //15
+
+	   //bottom
+	  -0.5f, -treeHeight, -0.5f,  0.0f, -1.0f,  0.0f, //16
+	  0.5f, -treeHeight, -0.5f,  0.0f, -1.0f,  0.0f, //17
+	  0.5f, -treeHeight,  0.5f,  0.0f, -1.0f,  0.0f, //18
+	  -0.5f, -treeHeight,  0.5f,  0.0f, -1.0f,  0.0f,//19
+
+	  //top
+	 -0.5f,  treeHeight, -0.5f,  0.0f,  1.0f,  0.0f, //20
+	 0.5f,  treeHeight, -0.5f,  0.0f,  1.0f,  0.0f, //21
+	 0.5f,  treeHeight,  0.5f,  0.0f,  1.0f,  0.0f, //22
+	 -0.5f,  treeHeight,  0.5f,  0.0f, 1.0f,  0.0f,  //23
+	};
+
+	glm::vec3 trunkPositions[]
+	{
+		glm::vec3(8.0f, -0.5f, -500.5f),
+		glm::vec3(-8.0f, -0.5f, -785.5f),
+		glm::vec3(5.0f, -0.5f, -2400.5f),
+		glm::vec3(-7.0f, -0.5f, -4000.5f)
+	};
+
+
+	// A Vertex Array Object (VAO) is an object which contains one or more Vertex Buffer Objects and is designed to store the information for a complete rendered object. 
+	GLuint vboTrunk, vaoTrunk;
+	glGenVertexArrays(1, &vaoTrunk);
+	glGenBuffers(1, &vboTrunk);
+
+	glBindVertexArray(vaoTrunk);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vboTrunk);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesTrunk), verticesTrunk, GL_STATIC_DRAW);
+
+	// 1rst attribute buffer : vertices position
+	glVertexAttribPointer(
+		0,                  // attribute 0, must match the layout in the shader.
+		3,                  // size of each attribute
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		6 * sizeof(float),     // stride
+		0            // array buffer offset
+	);
+	glEnableVertexAttribArray(0);
+
+	// 2nd attribute buffer : normal coords
+	glVertexAttribPointer(
+		1,                  // attribute 1, must match the layout in the shader.
+		3,                  // size of each attribute
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		6 * sizeof(float),                  // stride
+		(void*)(3 * sizeof(float))            // array buffer offset
+	);
+	glEnableVertexAttribArray(1);
+
+	GLuint programIDTree = LoadShaders("Shaders/SimpleVertexShaderTree.vertexshader", "Shaders/SimpleFragmentShaderGrassTree.fragmentshader");
+
+	float treeWidth = 3.0f;
+	float treeHeight2 = 4.0f;
+
+	GLfloat verticesTree[] = {
+		///we add coordinates for NORMALS 
+		//back
+		// position			//normals		
+		//we add coordinates for NORMALS 
+		//back
+		// position			//normals		
+		-treeWidth, -treeHeight2, -0.5f, 0.0f,  0.0f, -1.0f,  //0
+		treeWidth, -treeHeight2, -0.5f, 0.0f,  0.0f, -1.0f,  //1
+		treeWidth,  treeHeight2, -0.5f, 0.0f,  0.0f, -1.0f,  //2
+		-treeWidth,  treeHeight2, -0.5f,  0.0f,  0.0f, -1.0f,  //3
+
+		//front
+		-treeWidth, -treeHeight2,  0.5f,  0.0f,  0.0f,  1.0f,  //4
+		treeWidth, -treeHeight2,  0.5f,  0.0f,  0.0f,  1.0f,  //5
+		treeWidth,  treeHeight2,  0.5f,  0.0f,  0.0f,  1.0f,  //6
+		-treeWidth,  treeHeight2,  0.5f,  0.0f,  0.0f,  1.0f, //7
+
+		//left
+	   -treeWidth,  treeHeight2,  0.5f, -1.0f,  0.0f,  0.0f, //8
+	   -treeWidth,  treeHeight2, -0.5f, -1.0f,  0.0f,  0.0f, //9
+	   -treeWidth, -treeHeight2, -0.5f, -1.0f,  0.0f,  0.0f, //10
+	   -treeWidth, -treeHeight2,  0.5f, -1.0f,  0.0f,  0.0f, //11
+
+	   // right
+	   treeWidth,  treeHeight2,  0.5f,  1.0f,  0.0f,  0.0f, //12
+	   treeWidth,  treeHeight2, -0.5f,  1.0f,  0.0f,  0.0f, //13
+	   treeWidth, -treeHeight2, -0.5f,  1.0f,  0.0f,  0.0f, //14
+	   treeWidth, -treeHeight2,  0.5f,  1.0f,  0.0f,  0.0f, //15
+
+	   //bottom
+	  -treeWidth, -treeHeight2, -0.5f,  0.0f, -1.0f,  0.0f, //16
+	  treeWidth, -treeHeight2, -0.5f,  0.0f, -1.0f,  0.0f, //17
+	  treeWidth, -treeHeight2,  0.5f,  0.0f, -1.0f,  0.0f, //18
+	  -treeWidth, -treeHeight2,  0.5f,  0.0f, -1.0f,  0.0f,//19
+
+	  //top
+	 -treeWidth,  treeHeight2, -0.5f,  0.0f,  1.0f,  0.0f, //20
+	 treeWidth,  treeHeight2, -0.5f,  0.0f,  1.0f,  0.0f, //21
+	 treeWidth,  treeHeight2,  0.5f,  0.0f,  1.0f,  0.0f, //22
+	 -treeWidth,  treeHeight2,  0.5f,  0.0f, 1.0f,  0.0f,  //23
+	};
+
+
+	glm::vec3 treePositions[]
+	{
+		glm::vec3(8.0f, 5.0f, -500.5f),
+		glm::vec3(-8.0f, 5.0f, -785.5f),
+		glm::vec3(5.0f, 5.0f, -2400.5f),
+		glm::vec3(-7.0f, 5.0f, -4050.5f)
+	};
+
+
+
+	// A Vertex Array Object (VAO) is an object which contains one or more Vertex Buffer Objects and is designed to store the information for a complete rendered object. 
+	GLuint vboTree, vaoTree;
+	glGenVertexArrays(1, &vaoTree);
+	glGenBuffers(1, &vboTree);
+
+	glBindVertexArray(vaoTree);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vboTree);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(verticesTree), verticesTree, GL_STATIC_DRAW);
+
+	// 1rst attribute buffer : vertices position
+	glVertexAttribPointer(
+		0,                  // attribute 0, must match the layout in the shader.
+		3,                  // size of each attribute
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		6 * sizeof(float),     // stride
+		0            // array buffer offset
+	);
+	glEnableVertexAttribArray(0);
+
+	// 2nd attribute buffer : normal coords
+	glVertexAttribPointer(
+		1,                  // attribute 1, must match the layout in the shader.
+		3,                  // size of each attribute
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		6 * sizeof(float),                  // stride
+		(void*)(3 * sizeof(float))            // array buffer offset
+	);
+	glEnableVertexAttribArray(1);
+
+
+	// add the jack
+
 	GLuint programIDJack = LoadShaders("Shaders/SimpleVertexShaderJack.vertexshader", "Shaders/SimpleFragmentShaderJack.fragmentshader");
 
 
@@ -369,6 +560,7 @@ int main(void)
 
 
 
+	// add 3 red boules and 3 blue boules
 
 	GLuint programIDRed1 = LoadShaders("Shaders/SimpleVertexShaderRed1.vertexshader", "Shaders/SimpleFragmentShaderRed1.fragmentshader");
 
@@ -605,6 +797,8 @@ int main(void)
 	glfwSetFramebufferSizeCallback(window, window_callback);
 
 
+	//item setup
+
 	Ball jack = Ball(glm::vec3(0.0f, -0.5f, -1300.0f), 0, 0, 0, 0, 0, 0,0, sphereJack);
 
 	Ball red1 = Ball(glm::vec3(0.0f, 0.0f, 0.0f), 0, 0, 0, 0, 0, 0, 0, sphereRed1);
@@ -674,9 +868,13 @@ int main(void)
 
 		setFrames();
 
+		//models for each object
+
 		glm::mat4 modelJack, modelPlane, modelLight, modelGrass;
 		glm::mat4 modelRed1, modelBlue1;
 		glm::mat4 modelRed2, modelBlue2, modelRed3, modelBlue3;
+
+		glm::mat4 modelTrunk, modelTree;
 
 		glm::mat4 modelBoules[6] = { modelRed1, modelBlue1, modelRed2, modelBlue2, modelRed3, modelBlue3 };
 
@@ -728,7 +926,51 @@ int main(void)
 		glDrawArrays(GL_QUADS, 0, 24);
 
 
-		//setLight(programIDPlane);
+		//tree trunks
+
+		useShaderPack(programIDTrunk, vaoTrunk);
+
+		for(int i = 0; i < 4; i++)
+		{
+			
+			modelTrunk = glm::mat4(1.0f);
+
+			modelTrunk = glm::translate(modelTrunk, trunkPositions[i]);
+
+
+			MVP = projection * view * modelTrunk;
+
+			unsigned int transformLocT0 = glGetUniformLocation(programIDTrunk, "model");
+			glUniformMatrix4fv(transformLocT0, 1, GL_FALSE, glm::value_ptr(modelTrunk));
+
+			unsigned int transformLocT1 = glGetUniformLocation(programIDTrunk, "transform");
+			glUniformMatrix4fv(transformLocT1, 1, GL_FALSE, glm::value_ptr(MVP));
+
+			glDrawArrays(GL_QUADS, 0, 24);
+		}
+
+
+
+		useShaderPack(programIDTree, vaoTree);
+
+		//trees
+		for (int i = 0; i < 4; i++)
+		{
+			modelTree = glm::mat4(1.0f);
+
+			modelTree = glm::translate(modelTree, treePositions[i]);
+
+			MVP = projection * view * modelTree;
+
+			unsigned int transformLocT2 = glGetUniformLocation(programIDTree, "model");
+			glUniformMatrix4fv(transformLocT2, 1, GL_FALSE, glm::value_ptr(modelTree));
+
+			unsigned int transformLocT3 = glGetUniformLocation(programIDTree, "transform");
+			glUniformMatrix4fv(transformLocT3, 1, GL_FALSE, glm::value_ptr(MVP));
+
+
+			glDrawArrays(GL_QUADS, 0, 24);
+		}
 
 
 		//draw the Jack
@@ -745,7 +987,7 @@ int main(void)
 		//setLight(programIDJack);
 
 
-		//draw the ball
+		//add reset button on O
 		if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
 		{
 
@@ -762,6 +1004,8 @@ int main(void)
 		}
 
 
+		//start round
+
 		if (currentRound <= 2)
 		{
 
@@ -769,6 +1013,7 @@ int main(void)
 			{
 				useShaderPack(programIDBoules[i], vao[i]);
 
+				//spawn the ball on B
 
 				if (!boules[i].getBallSpawnTrue() && !boules[i].getBallDisqualified() && boules[i - 1].getBallDisqualified()
 					&& glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS)
@@ -785,10 +1030,13 @@ int main(void)
 
 				}
 
+				//check if the ball was spawned
 
 				if (boules[i].getBallSpawnTrue())
 				{
 					
+					//while in calibration mode, set left/right boule pos
+
 					if (!boules[i].getBallThrowTrue() && !boules[i].getBallCalibrateTrue()
 						&& glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 					{
@@ -814,6 +1062,7 @@ int main(void)
 						modelBoules[i] = boules[i].ballCalibrate(modelBoules[i]);
 					}
 
+					//throw on P
 					
 					if (!boules[i].getBallThrowTrue())
 					{
@@ -822,6 +1071,8 @@ int main(void)
 							boules[i].setBallThrowSpeed(boules[i].getBallThrowSpeed() + 2);
 
 						}
+
+						//compute by scaling with press length and physics formula v^2=2ugd;
 
 						if (glfwGetKey(window, GLFW_KEY_P) == GLFW_RELEASE && boules[i].getBallThrowSpeed() != 0)
 						{
@@ -835,6 +1086,8 @@ int main(void)
 
 					}
 
+					//roll until disqualified or stop occurs
+
 					if (boules[i].getBallThrowTrue() && boules[i].getBallCalibrateTrue())
 					{
 						
@@ -843,7 +1096,8 @@ int main(void)
 							boules[i].setBallPositionZ(boules[i].getBallPositionZ() - boules[i].getBallThrowDist() * 0.1 / boules[i].getBallThrowSpeed());
 						else boules[i].setBallDisqualified(1);
 				
-	
+						//end on hitting the jack
+
 						if (checkCollision(boules[i], jack, 1.0f))
 						{
 							boules[i].setBallThrowDist(-boules[i].getBallPositionZ() - 2.0f);
@@ -854,6 +1108,7 @@ int main(void)
 								boules[j].ballReset();
 						}
 
+						//check collision with all stationary boules on the plane
 
 						for (int h = 0; h < i; h++)
 						{
@@ -885,9 +1140,13 @@ int main(void)
 									}
 								}
 
+							//block if stop occcurs
+
 							boules[h].ballBlock();
 
 						}
+
+						//maintain game animation each frame
 
 						animateBall(boules[i], projection, view, modelBoules[i], MVP, programIDBoules[i]);
 
@@ -918,6 +1177,7 @@ int main(void)
 
 		}
 
+		//compute score when all boules have been disqualified == stopped moving and no longer eligible for spawn
 
 		if (boules[0].getBallDisqualified() && boules[1].getBallDisqualified() && boules[2].getBallDisqualified()
 			&& boules[3].getBallDisqualified() && boules[4].getBallDisqualified() && boules[5].getBallDisqualified())
@@ -927,7 +1187,7 @@ int main(void)
 
 			for (int j = 0; j < 6; j++)
 			{
-				
+				//math formula for dist between 2 points in a cartesian plane (we use xOz here)
 				float dist = sqrt(pow(jack.getBallPositionX() - boules[j].getBallPositionX(), 2) +
 					pow(jack.getBallPositionZ() - boules[j].getBallPositionZ(), 2));
 
@@ -938,7 +1198,7 @@ int main(void)
 
 
 			}
-
+			//score update
 			for(int j = 0; j < 5; j += 2)
 			{
 				if (allScores[j] > allScores[j + 1])
@@ -973,6 +1233,7 @@ int main(void)
 			std::cout << "|                         |" << "|                         |" << std::endl;
 			std::cout << "|-------------------------|" << "|-------------------------|" << std::endl;
 			
+			//reset for next round
 			for (int j = 0; j < 6; j++)
 				boules[j].ballReset();
 
@@ -1015,6 +1276,7 @@ int main(void)
 				}
 			}
 
+			//inc round
 			currentRound = gameRounds[currentRound + 1];
 			
 

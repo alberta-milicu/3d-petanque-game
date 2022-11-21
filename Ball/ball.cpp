@@ -1,6 +1,5 @@
 # include "ball.h"
 # include <math.h>
-# include "../Sphere.h"
 
 //frictionCoefficientOnDirt = 0.5;
 //gravitationalAcceleration = 9.81;

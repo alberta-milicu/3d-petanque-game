@@ -33,5 +33,9 @@
     <None Include="Shaders\SimpleVertexShaderRed1.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderRed2.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderRed3.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderPlaneTrunk.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderPlaneTrunk.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderGrassTree.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderTree.vertexshader" />
   </ItemGroup>
 </Project>
