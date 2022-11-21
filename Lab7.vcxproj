@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\LABS\Lab 7 - OpenGL Light start\Lab 7 - OpenGL no textures\Sphere.cpp" />
     <ClCompile Include="Ball\ball.cpp" />
     <ClCompile Include="Camera\camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\LABS\Lab 7 - OpenGL Light start\Lab 7 - OpenGL no textures\Sphere.h" />
     <ClInclude Include="Ball\ball.h" />
     <ClInclude Include="Camera\camera.h" />
   </ItemGroup>
@@ -34,6 +36,7 @@
     <None Include="Shaders\SimpleFragmentShaderBlue1.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderBlue2.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderBlue3.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderGrass.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderJack.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderPlane.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderRed1.fragmentshader" />
@@ -42,6 +45,7 @@
     <None Include="Shaders\SimpleVertexShaderBlue1.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderBlue2.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderBlue3.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderGrass.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderJack.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderPlane.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderRed1.vertexshader" />

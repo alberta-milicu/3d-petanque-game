@@ -7,6 +7,7 @@
 #include "..\dependente\glm\glm.hpp"
 #include "..\dependente\glm\gtc\matrix_transform.hpp"
 #include "..\dependente\glm\gtc\type_ptr.hpp"
+#include "../Sphere.h"
 
 
 class Ball
@@ -20,11 +21,12 @@ private:
 	int throwSpeed;
 	int disqualified;
 	int collisionTrue;
+	Sphere sphere;
 
 public:
 	Ball();
 	Ball(glm::vec3 ballPosition, int throwTrue, int calibrateTrue, 
-		int spawnTrue, float throwDist, float throwSpeed, int disqualified, int collisionTrue);
+		int spawnTrue, float throwDist, float throwSpeed, int disqualified, int collisionTrue, Sphere sphere);
 	~Ball();
 
 	void drawBall(glm::mat4 MVP, glm::mat4 projection, glm::mat4 view, glm::mat4 model, GLuint programID);
