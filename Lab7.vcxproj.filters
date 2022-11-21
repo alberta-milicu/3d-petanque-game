@@ -5,29 +5,37 @@
     <ClCompile Include="Camera\camera.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Ball\ball.cpp" />
+    <ClCompile Include="..\LABS\Lab 7 - OpenGL Light start\Lab 7 - OpenGL no textures\Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Ball\ball.h" />
+    <ClInclude Include="..\LABS\Lab 7 - OpenGL Light start\Lab 7 - OpenGL no textures\Sphere.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\LightFragmentShader.fragmentshader" />
     <None Include="Shaders\LightVertexShader.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderBlue1.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderBlue2.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderBlue3.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderGrass.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderJack.fragmentshader" />
     <None Include="Shaders\SimpleFragmentShaderPlane.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderRed1.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderRed2.fragmentshader" />
+    <None Include="Shaders\SimpleFragmentShaderRed3.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderBlue1.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderBlue2.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderBlue3.vertexshader" />
+    <None Include="Shaders\SimpleVertexShaderGrass.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderJack.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderPlane.vertexshader" />
-    <None Include="Shaders\SimpleFragmentShaderRed1.fragmentshader" />
     <None Include="Shaders\SimpleVertexShaderRed1.vertexshader" />
-    <None Include="Shaders\SimpleFragmentShaderBlue1.fragmentshader" />
-    <None Include="Shaders\SimpleVertexShaderBlue1.vertexshader" />
     <None Include="Shaders\SimpleVertexShaderRed2.vertexshader" />
-    <None Include="Shaders\SimpleFragmentShaderRed2.fragmentshader" />
-    <None Include="Shaders\SimpleFragmentShaderBlue2.fragmentshader" />
-    <None Include="Shaders\SimpleVertexShaderBlue2.vertexshader" />
-    <None Include="Shaders\SimpleFragmentShaderRed3.fragmentshader" />
     <None Include="Shaders\SimpleVertexShaderRed3.vertexshader" />
-    <None Include="Shaders\SimpleFragmentShaderBlue3.fragmentshader" />
-    <None Include="Shaders\SimpleVertexShaderBlue3.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderPlaneTrunk.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderPlaneTrunk.vertexshader" />
+    <None Include="Shaders\SimpleFragmentShaderGrassTree.fragmentshader" />
+    <None Include="Shaders\SimpleVertexShaderTree.vertexshader" />
   </ItemGroup>
 </Project>

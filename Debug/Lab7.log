@@ -1,9 +1,11 @@
 ﻿          1 file(s) copied.
           1 file(s) copied.
-  main.cpp
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(52,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1014,80): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1029,64): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1118,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Uni\Graphics\ACG BIG HW 3D GAME\main.cpp(1122,19): warning C4305: '+=': truncation from 'double' to 'float'
+  ball.cpp
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(21,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(22,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(62,26): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(161,13): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(166,13): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(218,20): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Uni\Graphics\ACG BIG HW 3D GAME\Ball\ball.cpp(223,21): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Lab7.vcxproj -> C:\Uni\Graphics\ACG BIG HW 3D GAME\Debug\ACG_Lab7.exe
